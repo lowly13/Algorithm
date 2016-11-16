@@ -6,7 +6,7 @@ import java.awt.geom.Ellipse2D;
 /**
  * Created by Han on 2016-11-14.
  */
-public class AStarNode {
+public class AStarNode extends Node {
 	/**
 	 * f = total Cost
 	 * g = distance from StartNode ( Path 고려 ) ParentNode.g + (distance From parentNode)
@@ -16,15 +16,10 @@ public class AStarNode {
 	private int g = 0;
 	private int h = 0;
 
-	private int x;
-	private int y;
-
-	private boolean isObstacle = false;
 	private AStarNode parent = null;
 
 	public AStarNode(int x, int y) {
-		this.x = x;
-		this.y = y;
+		super(x, y);
 	}
 
 	@Override
@@ -61,14 +56,6 @@ public class AStarNode {
 		return parent;
 	}
 
-	public boolean isObstacle() {
-		return isObstacle;
-	}
-
-	public void setObstacle(boolean obstacle) {
-		isObstacle = obstacle;
-	}
-
 	public void setParent(AStarNode parent) {
 		this.parent = parent;
 	}
@@ -92,16 +79,5 @@ public class AStarNode {
 		int dy = this.y - node.y;
 
 		return (int) (Math.sqrt(dx*dx + dy*dy) * 10);
-	}
-
-	public void draw(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
-
-		int realX = x * 40 + 40;
-		int realY = y * 40 + 40;
-
-		Ellipse2D.Double circle = new Ellipse2D.Double(realX, realY, 20, 20);
-		g2d.setColor(Color.BLUE);
-		g2d.fill(circle);
 	}
 }
