@@ -9,7 +9,9 @@ import java.awt.event.ActionListener;
  * Created by Han on 2016-11-14.
  */
 public class MainFrame extends JFrame {
-
+	private AStarPanel astarPanel;
+	private DijkstraPanel dijkstraPanel;
+	private JPanel floydPanel;
 
 	public MainFrame() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -23,10 +25,15 @@ public class MainFrame extends JFrame {
 
 		int panelWidth = (width - 100) / 30;
 
+
+		astarPanel = new AStarPanel();
+		dijkstraPanel = new DijkstraPanel();
+		floydPanel = new AStarPanel();
+
 		JPanel centerPanel = new JPanel(new GridLayout(1, 3, 50, 50));
-		centerPanel.add(new AStarPanel());
-		centerPanel.add(new AStarPanel());
-		centerPanel.add(new AStarPanel());
+		centerPanel.add(astarPanel);
+		centerPanel.add(dijkstraPanel);
+		centerPanel.add(floydPanel);
 
 		this.add(centerPanel, BorderLayout.CENTER);
 		this.add(new ControlPanel(new ClickListener()), BorderLayout.SOUTH);
@@ -39,9 +46,20 @@ public class MainFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String text = ((JButton)e.getSource()).getText();
-			if (text.equals("START")) System.out.println(text);
-			else if (text.equals("NEXT")) System.out.println(text);
-			else if (text.equals("CLEAR")) System.out.println(text);
+			if (text.equals("START")) {
+				astarPanel.start();
+				System.out.println(text);
+				repaint();
+			}
+			else if (text.equals("NEXT")) {
+				astarPanel.next();
+				System.out.println(text);
+				repaint();
+			}
+			else if (text.equals("CLEAR")) {
+				astarPanel.clear();
+				System.out.println(text);
+			}
 
 		}
 	}

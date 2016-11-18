@@ -21,9 +21,9 @@ public class AStarMap {
 	private AStarNode startNode;
 	private AStarNode endNode;
 
-	public AStarMap(final int x_size, final int y_size) {
-		this.x_size = x_size;
-		this.y_size = y_size;
+	public AStarMap() {
+		this.x_size = 30;
+		this.y_size = 30;
 
 		map = new AStarNode[x_size][y_size];
 
@@ -38,7 +38,7 @@ public class AStarMap {
 		if (startNode != null) startNode.setDefault();
 
 		startNode = this.map[x][y];
-		startNode.setStartNode(true);
+		startNode.setStartNode();
 	}
 
 	public AStarNode getStartNode() {
@@ -51,7 +51,7 @@ public class AStarMap {
 		if (endNode != null) endNode.setDefault();
 
 		endNode = map[x][y];
-		endNode.setEndNode(true);
+		endNode.setEndNode();
 	}
 
 	public AStarNode getEndNode() {
@@ -59,8 +59,9 @@ public class AStarMap {
 	}
 
 	public void setObstacle(int x, int y) {
-		if (!map[x][y].isObstacle()) map[x][y].setObstacle(true);
-		else map[x][y].setDefault();
+		map[x][y].setObstacle();
+//		if (!map[x][y].isObstacle()) map[x][y].setObstacle();
+//		else map[x][y].setDefault();
 	}
 
 	/**
@@ -94,22 +95,10 @@ public class AStarMap {
 	}
 
 	public void draw(Graphics g) {
-
 		for (AStarNode[] column : map) {
 			for (AStarNode node : column) {
 				node.draw(g);
 			}
 		}
-//		int width = getWidth() / 20;
-//		int height = getHeight() / 20;
-//
-//		System.out.println(width);
-//		System.out.println(height);
-//
-//		for (int x = 0; x <= width; x++)
-//			g.drawLine(x * 20, 0, x * 20, getHeight());
-//
-//		for (int y = 0; y <= height; y++)
-//			g.drawLine(0, y * 20, getWidth(), y * 20);
 	}
 }

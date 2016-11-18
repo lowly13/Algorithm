@@ -17,6 +17,7 @@ public class Node {
 	 * openList = 3
 	 * closedList = 4
 	 * obstacle = 5
+	 * path = 6
 	 * */
 	private int state = 0;
 
@@ -29,23 +30,27 @@ public class Node {
 		return state == 3;
 	}
 
-	public void setOpenList(boolean openList) {
-		state = 3;
+	public void setOpenList() {
+		if (state != 1)
+			if (state != 2)
+				state = 3;
 	}
 
 	public boolean isClosedList() {
 		return state == 4;
 	}
 
-	public void setClosedList(boolean closedList) {
-		state = 4;
+	public void setClosedList() {
+		if (state != 1)
+			if (state != 2)
+				state = 4;
 	}
 
 	public boolean isStartNode() {
 		return state == 1;
 	}
 
-	public void setStartNode(boolean startNode) {
+	public void setStartNode() {
 		state = 1;
 	}
 
@@ -53,7 +58,7 @@ public class Node {
 		return state == 2;
 	}
 
-	public void setEndNode(boolean endNode) {
+	public void setEndNode() {
 		state = 2;
 	}
 
@@ -61,8 +66,17 @@ public class Node {
 		return state == 5;
 	}
 
-	public void setObstacle(boolean obstacle) {
+	public void setObstacle() {
 		state = 5;
+	}
+
+	public boolean isPath() {
+		return state == 6;
+	}
+
+	public void setPath() {
+		if (isStartNode()) return;
+		state = 6;
 	}
 
 	public void setDefault() {
@@ -74,10 +88,10 @@ public class Node {
 		else if (isEndNode()) g.setColor(Color.BLUE);
 		else if (isObstacle()) g.setColor(Color.BLACK);
 		else if (isOpenList()) g.setColor(Color.GREEN);
-		else if (isClosedList()) g.setColor(Color.DARK_GRAY);
+		else if (isClosedList()) g.setColor(Color.GRAY);
+		else if (isPath()) g.setColor(Color.MAGENTA);
 		else g.setColor(Color.WHITE);
 
 		g.fillRect(x * 20, y * 20, 19, 19);
-//		g.drawRect(x * 20, y * 20, 19, 19);
 	}
 }
