@@ -12,7 +12,7 @@ import java.awt.event.MouseAdapter;
  */
 public class AStarPanel extends Panel {
 	private AStarAlgorithm algorithm;
-	private JPanel panel;
+//	private JPanel panel;
 
 	public AStarPanel(MouseAdapter mouseListener) {
 		super(mouseListener);
@@ -20,9 +20,9 @@ public class AStarPanel extends Panel {
 		this.setLayout(new BorderLayout());
 		this.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-		panel = new JPanel();
-		panel.add(new JLabel("TEST"));
-		this.add(panel, BorderLayout.SOUTH);
+//		panel = new JPanel();
+//		panel.add(new JLabel("TEST"));
+//		this.add(panel, BorderLayout.SOUTH);
 	}
 
 	@Override
