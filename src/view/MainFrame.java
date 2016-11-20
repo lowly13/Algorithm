@@ -4,14 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Created by Han on 2016-11-14.
  */
 public class MainFrame extends JFrame {
-	private AStarPanel astarPanel;
+	private AStarPanel aStarPanel;
 	private DijkstraPanel dijkstraPanel;
-	private JPanel floydPanel;
 
 	public MainFrame() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -25,15 +26,12 @@ public class MainFrame extends JFrame {
 
 		int panelWidth = (width - 100) / 30;
 
-
-		astarPanel = new AStarPanel();
-		dijkstraPanel = new DijkstraPanel();
-		floydPanel = new AStarPanel();
+		aStarPanel = new AStarPanel(new MouseListener());
+		dijkstraPanel = new DijkstraPanel(null);
 
 		JPanel centerPanel = new JPanel(new GridLayout(1, 3, 50, 50));
-		centerPanel.add(astarPanel);
+		centerPanel.add(aStarPanel);
 		centerPanel.add(dijkstraPanel);
-		centerPanel.add(floydPanel);
 
 		this.add(centerPanel, BorderLayout.CENTER);
 		this.add(new ControlPanel(new ClickListener()), BorderLayout.SOUTH);
@@ -45,22 +43,52 @@ public class MainFrame extends JFrame {
 	private class ClickListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String text = ((JButton)e.getSource()).getText();
+			String text = ((JButton) e.getSource()).getText();
 			if (text.equals("START")) {
-				astarPanel.start();
-				System.out.println(text);
-				repaint();
-			}
-			else if (text.equals("NEXT")) {
-				astarPanel.next();
-				System.out.println(text);
-				repaint();
-			}
-			else if (text.equals("CLEAR")) {
-				astarPanel.clear();
-				System.out.println(text);
+				aStarPanel.start();
+//				dijkstraPanel.start();
+			} else if (text.equals("NEXT")) {
+				aStarPanel.next();
+//				dijkstraPanel.next();
+			} else if (text.equals("CLEAR")) {
+				aStarPanel.clear();
+//				dijkstraPanel.clear();
 			}
 
+			repaint();
+
+		}
+	}
+
+	private class MouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			super.mouseClicked(e);
+			Point point = e.getPoint();
+
+			int x = (int) point.getX() / 20;
+			int y = (int) point.getY() / 20;
+			int button = e.getButton();
+
+			if (button == 1) {
+				aStarPanel.setStartNode(x, y);
+				dijkstraPanel.setStartNode(x, y);
+			} else if (button == 2) {
+				aStarPanel.setObstacleNode(x, y);
+				dijkstraPanel.setObstacleNode(x, y);
+			} else if (button == 3) {
+				aStarPanel.setEndNode(x, y);
+				dijkstraPanel.setEndNode(x, y);
+			}
+			repaint();
+		}
+
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			super.mouseDragged(e);
+			aStarPanel.setObstacleNode((int) e.getPoint().getX() / 20, (int) e.getPoint().getY() / 20);
+			dijkstraPanel.setObstacleNode((int) e.getPoint().getX() / 20, (int) e.getPoint().getY() / 20);
+			repaint();
 		}
 	}
 

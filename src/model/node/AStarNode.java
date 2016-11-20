@@ -1,4 +1,4 @@
-package model;
+package model.node;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -11,33 +11,21 @@ public class AStarNode extends Node {
 	 * f = total Cost
 	 * g = distance from StartNode ( Path 고려 ) ParentNode.g + (distance From parentNode)
 	 * h = distance from endNode
-	 * */
+	 */
 	private int f = 0;
 	private int g = 0;
 	private int h = 0;
 
-	private AStarNode parent = null;
+	private Node parent = null;
 
 	public AStarNode(int x, int y) {
 		super(x, y);
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		return obj instanceof AStarNode && x == ((AStarNode) obj).x && y == ((AStarNode) obj).y;
-	}
 
 	@Override
 	public String toString() {
 		return "x : " + x + " y : " + y + "/ f : " + f + " g : " + g + " h : " + h;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
 	}
 
 	public int getG() {
@@ -52,32 +40,28 @@ public class AStarNode extends Node {
 		return f;
 	}
 
-	public AStarNode getParent() {
+	public Node getParent() {
 		return parent;
 	}
 
-	public void setParent(AStarNode parent) {
-		this.parent = parent;
-	}
-
-	public void setG(AStarNode parent) {
+	private void setG(AStarNode parent) {
 		this.g = parent.g + getStraightDistance(parent);
 	}
 
-	public void setH(AStarNode end) {
+	private void setH(AStarNode end) {
 		this.h = getStraightDistance(end);
 	}
 
-	public void setF(AStarNode parent, AStarNode end) {
+	private void setF(AStarNode parent, AStarNode end) {
 		setG(parent);
 		setH(end);
 		this.f = h + g;
 	}
 
-	public int getStraightDistance(AStarNode node) {
-		int dx = this.x - node.x;
-		int dy = this.y - node.y;
-
-		return (int) (Math.sqrt(dx*dx + dy*dy) * 10);
+	public void setParent(Node parent, Node end) {
+		if (parent instanceof AStarNode && end instanceof AStarNode) {
+			this.parent = parent;
+			this.setF((AStarNode) parent, (AStarNode) end);
+		}
 	}
 }

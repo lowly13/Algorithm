@@ -1,7 +1,6 @@
-package model;
+package model.node;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 
 /**
  * Created by Han on 2016-11-14.
@@ -18,7 +17,7 @@ public class Node {
 	 * closedList = 4
 	 * obstacle = 5
 	 * path = 6
-	 * */
+	 */
 	private int state = 0;
 
 	public Node(int x, int y) {
@@ -26,61 +25,79 @@ public class Node {
 		this.y = y;
 	}
 
-	public boolean isOpenList() {
-		return state == 3;
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof AStarNode && x == ((AStarNode) obj).x && y == ((AStarNode) obj).y;
 	}
 
-	public void setOpenList() {
-		if (state != 1)
-			if (state != 2)
-				state = 3;
+	public int getX() {
+		return x;
 	}
 
-	public boolean isClosedList() {
-		return state == 4;
-	}
-
-	public void setClosedList() {
-		if (state != 1)
-			if (state != 2)
-				state = 4;
+	public int getY() {
+		return y;
 	}
 
 	public boolean isStartNode() {
 		return state == 1;
 	}
 
-	public void setStartNode() {
-		state = 1;
-	}
-
 	public boolean isEndNode() {
 		return state == 2;
-	}
-
-	public void setEndNode() {
-		state = 2;
 	}
 
 	public boolean isObstacle() {
 		return state == 5;
 	}
 
-	public void setObstacle() {
-		state = 5;
+	public boolean isOpenList() {
+		return state == 3;
+	}
+
+	public boolean isClosedList() {
+		return state == 4;
 	}
 
 	public boolean isPath() {
 		return state == 6;
 	}
 
-	public void setPath() {
-		if (isStartNode()) return;
-		state = 6;
-	}
-
 	public void setDefault() {
 		state = 0;
+	}
+
+	public void setStartNode() {
+		state = 1;
+	}
+
+	public void setEndNode() {
+		state = 2;
+	}
+
+	public void setObstacle() {
+		state = 5;
+	}
+
+	public void setOpenList() {
+		if (state != 1 && state != 2)
+			state = 3;
+	}
+
+	public void setClosedList() {
+		if (state != 1 && state != 2)
+			state = 4;
+	}
+
+	public void setPath() {
+		if (state != 1 && state != 2)
+			state = 6;
+	}
+
+	public int getStraightDistance(Node node) {
+		int dx = this.x - node.x;
+		int dy = this.y - node.y;
+
+		return (int) (Math.sqrt(dx * dx + dy * dy) * 10);
 	}
 
 	public void draw(Graphics g) {
