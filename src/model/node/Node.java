@@ -27,7 +27,7 @@ public class Node {
 
 	@Override
 	public boolean equals(Object obj) {
-		return obj instanceof AStarNode && x == ((AStarNode) obj).x && y == ((AStarNode) obj).y;
+		return obj instanceof Node && x == ((Node) obj).x && y == ((Node) obj).y;
 	}
 
 	public int getX() {

@@ -19,8 +19,8 @@ public abstract class Map {
 	protected Node endNode;
 
 	public Map() {
-		this.X_SIZE = 30;
-		this.Y_SIZE = 30;
+		this.X_SIZE = 50;
+		this.Y_SIZE = 50;
 
 		initMap();
 	}

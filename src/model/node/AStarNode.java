@@ -22,7 +22,6 @@ public class AStarNode extends Node {
 		super(x, y);
 	}
 
-
 	@Override
 	public String toString() {
 		return "x : " + x + " y : " + y + "/ f : " + f + " g : " + g + " h : " + h;

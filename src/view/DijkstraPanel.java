@@ -2,11 +2,9 @@ package view;
 
 import controller.DijkstraAlgorithm;
 
-import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /**
  * Created by Han on 2016-11-14.
@@ -24,34 +22,36 @@ public class DijkstraPanel extends Panel {
 	@Override
 	public void start() {
 		algorithm.start();
+		repaint();
 	}
 
 	@Override
-	public void next() {
-		algorithm.next();
+	public boolean next() {
+		boolean isFinish = algorithm.next();
+		if (isFinish) System.out.println("DIJKSTRA FINISH");
+		repaint();
+		return isFinish;
 	}
 
 	@Override
 	public void clear() {
 		algorithm.clear();
+		repaint();
 	}
 
 	@Override
 	public void setStartNode(int x, int y) {
 		algorithm.setStart(x, y);
-		repaint();
 	}
 
 	@Override
 	public void setEndNode(int x, int y) {
 		algorithm.setEnd(x, y);
-		repaint();
 	}
 
 	@Override
 	public void setObstacleNode(int x, int y) {
 		algorithm.setObstacle(x, y);
-		repaint();
 	}
 
 	@Override

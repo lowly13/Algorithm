@@ -15,11 +15,10 @@ public abstract class Panel extends JPanel {
 	}
 
 	public abstract void start();
-	public abstract void next();
+	public abstract boolean next();
 	public abstract void clear();
 
 	public abstract void setStartNode(int x, int y);
 	public abstract void setEndNode(int x, int y);
 	public abstract void setObstacleNode(int x, int y);
-
 }

@@ -6,10 +6,10 @@ package model.node;
 public class DijkstraNode extends Node {
 	/**
 	 * g = distance from StartNode ( Path 고려 ) ParentNode.g + (distance From parentNode)
-	 * */
+	 */
 	private int g = 0;
 
-	private DijkstraNode parent = null;
+	private Node parent = null;
 
 	public DijkstraNode(int x, int y) {
 		super(x, y);
@@ -24,15 +24,18 @@ public class DijkstraNode extends Node {
 		return g;
 	}
 
-	public DijkstraNode getParent() {
+	public Node getParent() {
 		return parent;
-	}
-
-	public void setParent(DijkstraNode parent) {
-		this.parent = parent;
 	}
 
 	public void setG(DijkstraNode parent) {
 		this.g = parent.g + getStraightDistance(parent);
+	}
+
+	public void setParent(Node parent) {
+		if (parent instanceof DijkstraNode) {
+			this.parent = parent;
+			this.setG((DijkstraNode) parent);
+		}
 	}
 }

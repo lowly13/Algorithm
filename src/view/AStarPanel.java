@@ -2,6 +2,7 @@ package view;
 
 import controller.AStarAlgorithm;
 
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -11,12 +12,37 @@ import java.awt.event.MouseAdapter;
  */
 public class AStarPanel extends Panel {
 	private AStarAlgorithm algorithm;
+	private JPanel panel;
 
 	public AStarPanel(MouseAdapter mouseListener) {
 		super(mouseListener);
 		algorithm = new AStarAlgorithm();
 		this.setLayout(new BorderLayout());
 		this.setBorder(new EmptyBorder(20, 20, 20, 20));
+
+		panel = new JPanel();
+		panel.add(new JLabel("TEST"));
+		this.add(panel, BorderLayout.SOUTH);
+	}
+
+	@Override
+	public void start() {
+		algorithm.start();
+		repaint();
+	}
+
+	@Override
+	public boolean next() {
+		boolean isFinish = algorithm.next();
+		if (isFinish) System.out.println("ASTAR FINISH");
+		repaint();
+		return isFinish;
+	}
+
+	@Override
+	public void clear() {
+		algorithm.clear();
+		repaint();
 	}
 
 	@Override
@@ -32,24 +58,6 @@ public class AStarPanel extends Panel {
 	@Override
 	public void setObstacleNode(int x, int y) {
 		algorithm.setObstacle(x, y);
-	}
-
-	@Override
-	public void start() {
-		algorithm.start();
-		repaint();
-	}
-
-	@Override
-	public void next() {
-		if (algorithm.next()) System.out.println("FINISH");
-		repaint();
-	}
-
-	@Override
-	public void clear() {
-		algorithm.clear();
-		repaint();
 	}
 
 	@Override

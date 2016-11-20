@@ -22,6 +22,7 @@ public abstract class Algorithm {
 		definePath();
 		long endTime = System.currentTimeMillis();
 		executionTime = endTime - startTime;
+		System.out.println(executionTime);
 	}
 
 	public Map getMap() {

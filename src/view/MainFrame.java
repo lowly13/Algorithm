@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,8 @@ import java.awt.event.MouseEvent;
 public class MainFrame extends JFrame {
 	private AStarPanel aStarPanel;
 	private DijkstraPanel dijkstraPanel;
+
+	private ControlPanel controlPanel;
 
 	public MainFrame() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -27,17 +30,23 @@ public class MainFrame extends JFrame {
 		int panelWidth = (width - 100) / 30;
 
 		aStarPanel = new AStarPanel(new MouseListener());
-		dijkstraPanel = new DijkstraPanel(null);
+		dijkstraPanel = new DijkstraPanel(new MouseListener());
+		controlPanel = new ControlPanel(new ClickListener());
 
 		JPanel centerPanel = new JPanel(new GridLayout(1, 3, 50, 50));
+		centerPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 		centerPanel.add(aStarPanel);
 		centerPanel.add(dijkstraPanel);
 
 		this.add(centerPanel, BorderLayout.CENTER);
-		this.add(new ControlPanel(new ClickListener()), BorderLayout.SOUTH);
+		this.add(controlPanel, BorderLayout.SOUTH);
 
 		this.setVisible(true);
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	}
+
+	private void animation() {
+
 	}
 
 	private class ClickListener implements ActionListener {
@@ -46,17 +55,16 @@ public class MainFrame extends JFrame {
 			String text = ((JButton) e.getSource()).getText();
 			if (text.equals("START")) {
 				aStarPanel.start();
-//				dijkstraPanel.start();
+				dijkstraPanel.start();
+			} else if (text.equals("ANIMATION")) {
+				animation();
 			} else if (text.equals("NEXT")) {
 				aStarPanel.next();
-//				dijkstraPanel.next();
+				dijkstraPanel.next();
 			} else if (text.equals("CLEAR")) {
 				aStarPanel.clear();
-//				dijkstraPanel.clear();
+				dijkstraPanel.clear();
 			}
-
-			repaint();
-
 		}
 	}
 
