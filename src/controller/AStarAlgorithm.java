@@ -73,6 +73,7 @@ public class AStarAlgorithm extends Algorithm {
 			}
 		}
 
+		count++;
 		return false;
 	}
 

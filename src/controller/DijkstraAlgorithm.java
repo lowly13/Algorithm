@@ -73,6 +73,7 @@ public class DijkstraAlgorithm extends Algorithm {
 			}
 		}
 
+		count++;
 		return false;
 	}
 

@@ -8,6 +8,7 @@ import model.map.Map;
 public abstract class Algorithm {
 	protected Map map;
 	protected long executionTime;
+	protected int count = 0;
 
 	public abstract boolean next();
 	public abstract void clear();
@@ -22,7 +23,9 @@ public abstract class Algorithm {
 		definePath();
 		long endTime = System.currentTimeMillis();
 		executionTime = endTime - startTime;
-		System.out.println(executionTime);
+		System.out.println("실행 시간 : " + executionTime);
+		System.out.println("연산 횟수 : " + count);
+		System.out.println();
 	}
 
 	public Map getMap() {
@@ -31,6 +34,10 @@ public abstract class Algorithm {
 
 	public long getExecutionTime() {
 		return executionTime;
+	}
+
+	public int getCount() {
+		return count;
 	}
 
 	public void setStart(int x, int y) {
