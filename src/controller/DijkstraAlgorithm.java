@@ -24,6 +24,10 @@ public class DijkstraAlgorithm extends Algorithm {
 		this.closedList = new ArrayList<>();
 	}
 
+	public boolean isFinish() {
+		return isFinish;
+	}
+
 	@Override
 	public boolean next() {
 		// isFinish == true 이면 종료한다.

@@ -25,6 +25,14 @@ public class AStarPanel extends Panel {
 //		this.add(panel, BorderLayout.SOUTH);
 	}
 
+	public boolean isFinish() {
+		return algorithm.isFinish();
+	}
+
+	public int getCount() {
+		return algorithm.getCount();
+	}
+
 	@Override
 	public void start() {
 		algorithm.start();

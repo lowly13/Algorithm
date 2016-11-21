@@ -23,6 +23,10 @@ public class AStarAlgorithm extends Algorithm {
 		closedList = new ArrayList<>();
 	}
 
+	public boolean isFinish() {
+		return isFinish;
+	}
+
 	@Override
 	public boolean next() {
 		// isFinish == true 이면 종료한다.
@@ -83,6 +87,7 @@ public class AStarAlgorithm extends Algorithm {
 		this.map = new AStarMap();
 		this.openList.clear();
 		this.closedList.clear();
+		this.count = 0;
 	}
 
 	@Override

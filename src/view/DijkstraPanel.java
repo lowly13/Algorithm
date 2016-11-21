@@ -19,6 +19,14 @@ public class DijkstraPanel extends Panel {
 		this.setBorder(new EmptyBorder(20, 20, 20, 20));
 	}
 
+	public boolean isFinish() {
+		return algorithm.isFinish();
+	}
+
+	public int getCount() {
+		return algorithm.getCount();
+	}
+
 	@Override
 	public void start() {
 		algorithm.start();
